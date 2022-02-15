@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% block title %} Home Page {% endblock title %} 
+{% block page_title %} Add Persons {% endblock page_title %} {% block content %}
+{% load crispy_forms_tags %}
+<div class="row">
+    <div class="col-md-6">
+      <div class="card-body">
+        <form method="post" action="" enctype="multipart/form-data" novalidate>
+          {% csrf_token %}
+          {{form|crispy}}
+          <div class="row">
+            <div class="submit-btn mt-5">
+              <input
+                type="submit"
+                value="Submit"
+                name="submit"
+                class="btn btn-primary"
+              />
+            </div>
+            </div>
+        </form>
+      </div>
+    </div>
+{% endblock content %}

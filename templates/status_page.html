@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block title %} Home Page {% endblock title %} 
+{% block page_title %} Add Persons {% endblock page_title %} {% block content %}
+<div class="form-row m-5">
+  <div class="form-group col-md-6 col-lg-6">
+    <h3 style="color: crimson">{{ msg }}</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card-body">
+        <div class="row">
+          <div class="col-md-3">
+            <a class="btn btn-primary btn-block" href="{% url 'start_camera' %}">Start Camera</a>
+          </div>
+          <div class="col-md-3">
+            <a class="btn btn-primary btn-block" href="{% url 'detect' %}">Face Detection</a>
+          </div>
+          <div class="col-md-3">
+            <a class="btn btn-primary btn-block" href="{% url 'detect_object' %}">Object Detection</a>
+          </div>
+          <div class="col-md-3"></div>
+           
+    </div>
+  </div>
+</div>
+{% endblock content %}

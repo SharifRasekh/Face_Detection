@@ -1,0 +1,97 @@
+{% extends 'base.html' %} {% block title %} Home Page {% endblock title %} 
+{% block page_title %} Add Persons {% endblock page_title %} {% block content %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+{% if message %}
+<div class="row bg-success p-4">
+  <p class="text-white">{{message}}</p>
+</div>
+{% endif %}
+<div class="form-row m-5">
+  <div class="form-group col-md-6 col-lg-6">
+    <h3 style="color: crimson">{{ msg }}</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card-body">
+      <form method="post" action="" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        {{form|crispy}}
+        <div class="row">
+          <div class="submit-btn mt-5">
+            <input
+              type="submit"
+              value="Detect"
+              name="submit"
+              class="btn btn-primary"
+            />
+          </div>
+          </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-md-6">
+    {% if detection_file %}
+<div class="row">
+  <div class="card" style="width: 18rem;">
+    <div class="card-header">
+      <h1>Object Detection</h1>
+    </div>
+    {% if detection_file.file_type == "image" %}
+    <img class="card-img-top" src="{{detection_file.file.url}}" alt="Card image cap">
+    {% endif %}
+    {% if detection_file.file_type == "video" %}
+        <video width="100%" height="100%" controls>
+            <source src="{{detection_file.file.url}}"/>
+        </video>
+    {% endif %}
+    <div class="card-body">
+        <div class="card-title">
+            <p>{{ detection_file.created_at }}</p>
+            <p>Detected objects:</p>
+        </div>
+    </div>
+    <ul class="list-group list-group-flush">
+        {% for object in detection_file.detectedobject_set.all %}
+        <li class="list-group-item">{{object.name}}</li> 
+        {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}
+  </div>
+</div>
+
+<h1 style="text-align:center;">Past Detection Records</h1>
+<div class="row">
+    {% for record in past_detection_records %}
+        <div class="col-md-4 my-5">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                  <h1>Object Detection</h1>
+                </div>
+                {% if record.file_type == "image" %}
+                <img class="card-img-top" src="{{record.file.url}}" width="100%" height="100%" alt="Card image cap">
+                {% endif %}
+                {% if record.file_type == "video" %}
+                    <video width="100%" height="100%" controls>
+                        <source src="{{record.file.url}}"/>
+                    </video>
+                {% endif %}
+                <div class="card-body">
+                    <div class="card-title">
+                        <p>Detection time: {{ record.created_at|naturaltime }}</p>
+                        <p>Detected objects:</p>
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for object in record.detectedobject_set.all %}
+                    <li class="list-group-item">{{object.name|title}}</li> 
+                    {% endfor %}
+                </ul>
+              </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock content %}

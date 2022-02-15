@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} {% endblock title %}</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item navbar-brand active" href="{% url 'home' %}"
+                >Recognization <span class="sr-only">(current)</span></a
+              >
+              <a class="nav-item nav-link" href="{% url 'status' %}">Status</a>
+              <a class="nav-item nav-link" href="{% url 'image_processing_home' %}">Image Processing</a>
+            </div>
+          </div>
+        </nav>
+        <h1 class="page-title">
+          {% block page_title %} {% endblock page_title %}
+        </h1>
+        <p>
+          {% block project_description %} {% endblock project_description %}
+        </p>
+      </div>
+    </header>
+    <section class="container">
+      {% block content %} {% endblock content %}
+    </section>
+    <div class="footer"></div>
+    <script>
+      $(document).ready(function () {
+        window.setTimeout(function () {
+          $(".alert")
+            .fadeTo(500, 0)
+            .slideUp(500, function () {
+              $(this).remove();
+            });
+        }, 5000);
+      });
+    </script>
+  </body>
+</html>
+`

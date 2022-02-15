@@ -1,0 +1,53 @@
+{% extends 'base.html' %} {% block title %} Home Page {% endblock title %} 
+{% block page_title %} Add Persons {% endblock page_title %} {% block content %}
+{% load crispy_forms_tags %}
+{% if message %}
+<div class="row bg-success p-4">
+  <p class="text-white">{{message}}</p>
+</div>
+{% endif %}
+<div class="form-row m-5">
+  <div class="form-group col-md-6 col-lg-6">
+    <h3 style="color: crimson">{{ msg }}</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card-body">
+      <form method="post" action="" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        {{form|crispy}}
+        <div class="row">
+          <div class="submit-btn mt-5">
+            <input
+              type="submit"
+              value="Detect"
+              name="submit"
+              class="btn btn-primary"
+            />
+          </div>
+          </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-md-6">
+    {% if person %}
+<div class="row">
+  <div class="card" style="width: 18rem;">
+    <div class="card-header">
+      <h1>Detected Person</h1>
+    </div>
+    <img class="card-img-top" src="{{img}}" alt="Card image cap">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">{{person.firstname}}</li>
+      <li class="list-group-item">{{person.lastname}}</li>
+      <li class="list-group-item">{{person.age}}</li>
+      <li class="list-group-item">{{person.phone_number}}</li>
+    </ul>
+  </div>
+</div>
+{% endif %}
+  </div>
+</div>
+
+{% endblock content %}
